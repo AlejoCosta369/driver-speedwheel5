@@ -1,0 +1,11 @@
+* text=auto eol=lf
+
+# Scripts y textos que se abren con doble clic en Windows.
+*.cmd text eol=crlf
+packaging/windows/*.txt text eol=crlf
+
+*.exe binary
+*.dll binary
+*.pdb binary
+*.zip binary
+*.gz binary

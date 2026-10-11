@@ -1,0 +1,10 @@
+[alias]
+xtask = "run --quiet --package xtask --"
+
+# CRT estático: la DLL se carga dentro de juegos arbitrarios y no debe depender
+# del redistribuible de Visual C++.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.i686-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

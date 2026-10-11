@@ -1,0 +1,51 @@
+﻿Speed Wheel 5 Pro - driver de vibración (Rust) v{VERSION}
+==========================================================
+
+Driver nuevo para el volante Genius Speed Wheel 5 Pro (USB 1A5C:3112 / 1A5C:3012).
+Reemplaza al driver original de 2008, que en Windows de 64 bits podía cerrar los
+juegos y no mezclaba bien los efectos.
+
+El volante tiene dos motores de vibración: los juegos que usan force feedback de
+DirectInput (la mayoría de los juegos de autos para PC) lo hacen vibrar.
+
+
+INSTALAR
+--------
+1. Descomprimí el .zip en una carpeta (no lo ejecutes desde adentro del .zip).
+2. Conectá el volante.
+3. Doble clic en "1 - Instalar.cmd" y aceptá el aviso de administrador de Windows.
+4. Doble clic en "2 - Probar.cmd": tenés que sentir 7 vibraciones distintas.
+
+Si Windows muestra "Windows protegió su PC" (SmartScreen): es porque el programa
+no está firmado digitalmente. Clic en "Más información" -> "Ejecutar de todas formas".
+
+El instalador:
+- copia los archivos a C:\Program Files\SpeedWheel5
+- guarda un backup de la configuración anterior del volante en
+  C:\ProgramData\SpeedWheel5\backup
+- no borra los archivos del driver original si lo tenías instalado: solo hace
+  que Windows use el nuevo (al desinstalar vuelve a usar el original)
+
+
+DESINSTALAR
+-----------
+Doble clic en "Desinstalar.cmd" (o desde "Agregar o quitar programas").
+Se restaura exactamente la configuración que había antes de instalar.
+
+
+AJUSTES (opcional)
+------------------
+Desde una consola en esta carpeta:
+
+  sw5 config --user --strength 70       intensidad global en % (100 = máximo)
+  sw5 config --user --swap-motors true  intercambiar motor fuerte y suave
+  sw5 config --user --min-level 40      si las vibraciones suaves no se sienten
+  sw5 status                            qué driver está usando Windows
+
+Los cambios se aplican la próxima vez que un juego abre el volante.
+
+
+LIMITACIONES
+------------
+- Juegos que solo usan XInput (control de Xbox) no pasan por este driver.
+- Algunos anti-cheat pueden bloquear DLL sin firma digital.

@@ -1,0 +1,33 @@
+[package]
+name = "sw5-cli"
+description = "Herramienta de diagnóstico e instalador del driver Speed Wheel 5 Pro"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "sw5"
+path = "src/main.rs"
+
+[target.'cfg(windows)'.dependencies]
+sw5-win.workspace = true
+sw5-effectdrv = { path = "../sw5-effectdrv" }
+windows-core.workspace = true
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+
+[target.'cfg(windows)'.dependencies.windows]
+workspace = true
+features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_Devices_HumanInterfaceDevice",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Registry",
+    "Win32_System_Threading",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+]

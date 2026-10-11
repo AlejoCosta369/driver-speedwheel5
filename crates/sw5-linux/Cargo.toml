@@ -1,0 +1,20 @@
+[package]
+name = "sw5-linux"
+description = "Servicio de force feedback para el Speed Wheel 5 Pro en Linux (uinput + hidraw)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "sw5-linux"
+path = "src/main.rs"
+
+[dependencies]
+sw5-core.workspace = true
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+evdev = "0.13"
+libc = "0.2"

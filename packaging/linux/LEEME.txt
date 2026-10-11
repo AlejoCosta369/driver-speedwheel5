@@ -1,0 +1,49 @@
+Speed Wheel 5 Pro - force feedback para Linux (sw5-linux) v{VERSION}
+=====================================================================
+
+Servicio que agrega vibración al volante Genius Speed Wheel 5 Pro
+(USB 1A5C:3112 / 1A5C:3012) en Linux. El kernel reconoce el volante como joystick,
+pero sin force feedback. sw5-linux crea un volante virtual idéntico que sí lo
+tiene, así funcionan SDL, Steam y Proton.
+
+Requisitos: Linux con systemd y udev (Ubuntu, Fedora, Arch, Debian, SteamOS...).
+El binario es estático: no necesita librerías.
+
+
+INSTALAR
+--------
+  tar xzf sw5-linux-{VERSION}-x86_64.tar.gz
+  cd sw5-linux-{VERSION}
+  sudo ./sw5-linux install
+  sw5-linux test        (con el volante conectado: 5 vibraciones)
+
+El instalador:
+- copia el binario a /usr/local/bin/sw5-linux
+- carga el módulo uinput al arrancar (/etc/modules-load.d/sw5-uinput.conf)
+- instala una regla de udev (/etc/udev/rules.d/71-sw5-wheel.rules) que oculta el
+  volante real a los juegos, para que usen solo el virtual
+- instala y arranca el servicio systemd sw5-linux.service
+
+Ajustes: se pasan al instalar, por ejemplo
+  sudo sw5-linux install --strength 70 --min-level 40
+
+
+DESINSTALAR
+-----------
+  sudo sw5-linux uninstall
+
+
+DIAGNÓSTICO
+-----------
+  sw5-linux status                  servicio, volante real y virtual
+  journalctl -u sw5-linux -f        log del servicio
+  sudo systemctl stop sw5-linux     (detener) y después:
+  sudo sw5-linux raw 255 0          motor fuerte 1 s, sin el servicio
+
+
+STEAM DECK
+----------
+Sin probar todavía. En modo escritorio, con contraseña de root (passwd en Konsole)
+y el binario fuera de /usr, que en SteamOS es de solo lectura:
+  sudo ./sw5-linux install --prefix /home/deck/.local
+Si una actualización de SteamOS lo desactiva, volvé a correr el install.

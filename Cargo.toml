@@ -1,0 +1,31 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/sw5-core",
+    "crates/sw5-win",
+    "crates/sw5-effectdrv",
+    "crates/sw5-cli",
+    "crates/sw5-linux",
+    "xtask",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+sw5-core = { path = "crates/sw5-core" }
+sw5-win = { path = "crates/sw5-win" }
+# Fijado: 0.62.2 es la última versión del crate `windows` que incluye
+# IDirectInputEffectDriver / DIHIDFFINITINFO (ver investigacion/04-investigacion-rust.md).
+windows = "=0.62.2"
+windows-core = "0.62"
+
+[profile.release]
+# `unwind` + catch_unwind en toda frontera FFI: un panic nunca debe abortar el juego.
+panic = "unwind"
+lto = "thin"
+codegen-units = 1
+debug = "line-tables-only"
